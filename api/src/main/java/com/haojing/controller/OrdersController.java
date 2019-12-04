@@ -5,12 +5,11 @@ import com.haojing.enums.OrderStatusEnum;
 import com.haojing.enums.PayMethod;
 import com.haojing.service.OrderService;
 import com.haojing.utils.JSONresult;
-import com.haojing.vo.MerchantOrdersVO;
 import com.haojing.vo.OrderVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
