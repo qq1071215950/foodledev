@@ -3,6 +3,7 @@ package com.haojing.controller;
 import com.haojing.bo.SubmitOrderBO;
 import com.haojing.enums.OrderStatusEnum;
 import com.haojing.enums.PayMethod;
+import com.haojing.pojo.OrderStatus;
 import com.haojing.service.OrderService;
 import com.haojing.utils.JSONresult;
 import com.haojing.vo.OrderVO;
@@ -57,6 +58,8 @@ public class OrdersController extends BaseController{
             return JSONresult.errorMsg("支付失败，订单创建失败");
         }*/
         // todo 可以跳过支付模块的处理
+        // todo 模拟支付成功
+        orderService.updateOrderStatus(orderId, OrderStatusEnum.WAIT_DELUVER.type);
         return JSONresult.ok(orderId);
     }
 
@@ -66,4 +69,12 @@ public class OrdersController extends BaseController{
         orderService.updateOrderStatus(merchantOrderId, OrderStatusEnum.WAIT_DELUVER.type);
         return HttpStatus.OK.value();
     }
+
+    @ApiOperation(value = "支付回调地址returnUrl", notes = "支付回调地址returnUrl", httpMethod = "POST")
+    @PostMapping("getPaidOrderInfo")
+    public JSONresult getPaidOrderInfo(@RequestParam String orderId){
+        OrderStatus orderStatus = orderService.queryOrderStatusInfo(orderId);
+        return JSONresult.ok(orderStatus);
+    }
+
 }
